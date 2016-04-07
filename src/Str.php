@@ -195,7 +195,7 @@ class Str
             $integerPart = substr($string, 0, $firstPos);
             if ($allowDecimal) {
                 $rawDecimalPart = substr($string, $firstPos);
-                $filteredDecimalPart = preg_replace('/[^0-9]/', '', $rawDecimalPart);
+                $filteredDecimalPart = rtrim(preg_replace('/[^0-9]/', '', $rawDecimalPart), '0');
                 if (!empty($filteredDecimalPart)) {
                     $decimalPart = '.' . $filteredDecimalPart;
                 }
@@ -204,16 +204,21 @@ class Str
             $integerPart = $string;
         }
 
-        $minusSign = '';
-        if ($allowNegative && strpos($string, '-') === 0) {
-            $minusSign = '-';
-        }
-
         $integerPart = ltrim(preg_replace('/[^0-9]/', '', $integerPart), '0');
+        $integerPart = $integerPart ?: '0';
+
+        $minusSign = '';
+        if (strpos($string, '-') === 0) {
+            if (!$allowNegative) {
+                return '0';
+            } elseif (!($integerPart === '0' && empty($decimalPart))) {
+                $minusSign = '-';
+            }
+        }
 
         $number = $minusSign . $integerPart . $decimalPart;
 
-        return $number ?: '0';
+        return $number;
     }
 
     /**

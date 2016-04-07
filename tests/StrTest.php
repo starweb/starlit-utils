@@ -89,25 +89,31 @@ class StrTest extends \PHPUnit_Framework_TestCase
 
     public function testToNumber()
     {
-        $this->assertEquals('123', Str::toNumber('123'));
-        $this->assertEquals('123', Str::toNumber('000123'));
-        $this->assertEquals('123', Str::toNumber('abc123'));
-        $this->assertEquals('123', Str::toNumber('abc123abc'));
+        $this->assertSame('0', Str::toNumber('0'));
+        $this->assertSame('0', Str::toNumber('000'));
+        $this->assertSame('123', Str::toNumber('123'));
+        $this->assertSame('123', Str::toNumber('000123'));
+        $this->assertSame('123', Str::toNumber('abc123'));
+        $this->assertSame('123', Str::toNumber('abc123abc'));
+        $this->assertSame('0', Str::toNumber('-123'));
     }
 
     public function testToNumberAllowDecimal()
     {
-        $this->assertEquals('123.45', Str::toNumber('123.45', true));
-        $this->assertEquals('123', Str::toNumber('-123', true));
-        $this->assertEquals('1234567890.5', Str::toNumber('[)c12345q67n890!!.5', true));
+        $this->assertSame('123.45', Str::toNumber('123.4500', true));
+        $this->assertSame('123.45', Str::toNumber('123.45', true));
+        $this->assertSame('123', Str::toNumber('123.0', true));
+        $this->assertSame('123', Str::toNumber('123', true));
+        $this->assertSame('1234567890.5', Str::toNumber('[)c12345q67n890!!.5', true));
     }
 
     public function testToNumberAllowNegative()
     {
-        $this->assertEquals('-123', Str::toNumber('-123', false, true));
-        $this->assertEquals('-123', Str::toNumber('-123.45', false, true));
-        $this->assertEquals('123', Str::toNumber('123', false, true));
-        $this->assertEquals('123123', Str::toNumber('123-123', false, true));
+        $this->assertSame('0', Str::toNumber('-0', false, true));
+        $this->assertSame('-123', Str::toNumber('-123', false, true));
+        $this->assertSame('-123', Str::toNumber('-123.45', false, true));
+        $this->assertSame('123', Str::toNumber('123', false, true));
+        $this->assertSame('123123', Str::toNumber('123-123', false, true));
     }
 
     public function testIncrementSeparated()
