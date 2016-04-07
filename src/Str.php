@@ -182,30 +182,38 @@ class Str
      * Filter out all non numeric characters and return a clean numeric string.
      *
      * @param string $string
+     * @param bool   $allowDecimal
+     * @param bool   $allowNegative
      * @return string
      */
-    public static function toNumber($string)
+    public static function toNumber($string, $allowDecimal = false, $allowNegative = false)
     {
-        // Replace the Swedish decimal separator "," with standard dot (since the user majority will be Swedish).
-        $filteredStr = str_replace(',', '.', $string);
+        $string = trim($string);
 
-        return preg_replace('/[^-0-9.]/', '', $filteredStr);
-    }
-
-    /**
-     * @param string $string
-     * @param bool   $allowNegative
-     * @return float
-     */
-    public static function toFloat($string, $allowNegative = false)
-    {
-        $float = (float) self::toNumber($string);
-
-        if (!$allowNegative && $float < 0.0) {
-            $float = 0.0;
+        $decimalPart = '';
+        if (($firstPos = strpos($string, '.')) !== false) {
+            $integerPart = substr($string, 0, $firstPos);
+            if ($allowDecimal) {
+                $rawDecimalPart = substr($string, $firstPos);
+                $filteredDecimalPart = preg_replace('/[^0-9]/', '', $rawDecimalPart);
+                if (!empty($filteredDecimalPart)) {
+                    $decimalPart = '.' . $filteredDecimalPart;
+                }
+            }
+        } else {
+            $integerPart = $string;
         }
 
-        return $float;
+        $minusSign = '';
+        if ($allowNegative && strpos($string, '-') === 0) {
+            $minusSign = '-';
+        }
+
+        $integerPart = ltrim(preg_replace('/[^0-9]/', '', $integerPart), '0');
+
+        $number = $minusSign . $integerPart . $decimalPart;
+
+        return $number ?: '0';
     }
 
     /**

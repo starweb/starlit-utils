@@ -89,9 +89,25 @@ class StrTest extends \PHPUnit_Framework_TestCase
 
     public function testToNumber()
     {
+        $this->assertEquals('123', Str::toNumber('123'));
+        $this->assertEquals('123', Str::toNumber('000123'));
         $this->assertEquals('123', Str::toNumber('abc123'));
-        $this->assertEquals('123.45', Str::toNumber('123.45'));
-        $this->assertEquals('-1234567890.5', Str::toNumber('[)c-12345q67n890!!,5'));
+        $this->assertEquals('123', Str::toNumber('abc123abc'));
+    }
+
+    public function testToNumberAllowDecimal()
+    {
+        $this->assertEquals('123.45', Str::toNumber('123.45', true));
+        $this->assertEquals('123', Str::toNumber('-123', true));
+        $this->assertEquals('1234567890.5', Str::toNumber('[)c12345q67n890!!.5', true));
+    }
+
+    public function testToNumberAllowNegative()
+    {
+        $this->assertEquals('-123', Str::toNumber('-123', false, true));
+        $this->assertEquals('-123', Str::toNumber('-123.45', false, true));
+        $this->assertEquals('123', Str::toNumber('123', false, true));
+        $this->assertEquals('123123', Str::toNumber('123-123', false, true));
     }
 
     public function testIncrementSeparated()
@@ -106,20 +122,6 @@ class StrTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Aname', Str::uppercaseFirst('aname'));
         $this->assertEquals('Aname', Str::uppercaseFirst('Aname'));
         $this->assertEquals('Öname', Str::uppercaseFirst('öname'));
-    }
-
-    public function testToFloat()
-    {
-        $this->assertEquals(123.45, Str::toFloat('123.45'));
-        $this->assertEquals(123.45, Str::toFloat('abc123.45'));
-        $this->assertEquals(123.45, Str::toFloat('123,45'));
-        $this->assertEquals(0, Str::toFloat('-123,45'));
-    }
-
-    public function testToFloatAllowNegative()
-    {
-        $this->assertEquals(123.45, Str::toFloat('123.45', true));
-        $this->assertEquals(-123.45, Str::toFloat('-123.45', true));
     }
 
     public function testReplaceFirst()
