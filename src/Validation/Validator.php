@@ -348,7 +348,7 @@ class Validator
     /**
      * @param string $key
      * @param mixed  $default
-     * @return array
+     * @return mixed
      */
     public function getValidatedData($key = null, $default = null)
     {
