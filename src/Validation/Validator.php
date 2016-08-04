@@ -40,13 +40,6 @@ class Validator
     protected $translator;
 
     /**
-     * Fields to be validated and their rules.
-     *
-     * @var array
-     */
-    protected $fieldRules;
-
-    /**
      * @var array
      */
     protected $validatedData = [];
@@ -54,7 +47,7 @@ class Validator
     /**
      * @var array
      */
-    protected $fieldsRuleProperties;
+    protected $fieldsRuleProperties = [];
 
     /**
      * Constructor.
