@@ -61,6 +61,8 @@ class Arr
     }
 
     /**
+     * Get a new array with prefix applied to all values.
+     *
      * @param array  $array
      * @param string $prefix
      * @return array
