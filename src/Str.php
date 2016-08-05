@@ -73,8 +73,8 @@ class Str
     /**
      * Get shortened string.
      *
-     * @param bool $string
-     * @param int $maxLength
+     * @param string $string
+     * @param int    $maxLength
      * @param string $indicator
      * @return string
      */

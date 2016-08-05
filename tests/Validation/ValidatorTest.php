@@ -2,8 +2,13 @@
 
 namespace Starlit\Utils\Validation;
 
+use Symfony\Component\Translation\TranslatorInterface;
+
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Validator
+     */
     private $validator;
 
     public function setUp()
@@ -12,7 +17,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $rules['someField']['minLength'] = 5;
         $rules['nonRequiredField'] = [];
 
-        $mockTranslator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
+        $mockTranslator = $this->createMock(TranslatorInterface::class);
 
         $mockTranslator->expects($this->any())
             ->method('trans')
@@ -25,13 +30,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     {
         new Validator();
 
-        $mockTranslator = $this->getMock('\Starlit\Utils\Validation\ValidatorTranslatorInterface');
+        $mockTranslator = $this->createMock(ValidatorTranslatorInterface::class);
         new Validator([], $mockTranslator);
     }
 
     public function testInvalidConstruction()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         new Validator([], 123);
     }
 
@@ -121,13 +126,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidRuleRequired()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['required' =>  's']);
     }
 
     public function testInvalidRuleNonEmpty()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['nonEmpty' =>  's']);
     }
 
@@ -145,31 +150,31 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidRuleMin()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['min' => 's']);
     }
 
     public function testInvalidRuleMax()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['max' => 's']);
     }
 
     public function testInvalidRuleMinLength()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['minLength' => 's']);
     }
 
     public function testInvalidRuleMaxLength()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['maxLength' => 's']);
     }
 
     public function testInvalidRuleLength()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['length' => 's']);
     }
 
@@ -187,19 +192,19 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidRuleRegexp()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['regexp' => null]);
     }
 
     public function testInvalidRuleEmail()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['email' => 's']);
     }
 
     public function testInvalidDateTimeRule()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['dateTime' => 's']);
     }
 
@@ -238,19 +243,19 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidRuleCustom()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['custom' => 's']);
     }
 
     public function testInvalidRuleNone()
     {
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['nonExistantRule' => null]);
     }
 
     public function testTextKeyErrorMsg()
     {
-        $mockTranslator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
+        $mockTranslator = $this->createMock(TranslatorInterface::class);
 
         $mockTranslator->expects($this->exactly(2))
             ->method('trans')
