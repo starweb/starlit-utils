@@ -205,4 +205,15 @@ class Arr
 
         return $sortedArray;
     }
+
+    /**
+     * @param array  $array
+     * @param string $key
+     * @param null   $default
+     * @return array
+     */
+    public static function getValue(array $array, $key, $default = null)
+    {
+        return isset($array[$key]) ? $array[$key] : $default;
+    }
 }
