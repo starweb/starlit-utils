@@ -150,6 +150,18 @@ class ArrTest extends \PHPUnit_Framework_TestCase
         // It should be sorted correctly
         $this->assertEquals($desiredArray, $sortedArray);
     }
+
+    public function testGetValue()
+    {
+        $testArray = ['key' => 'value'];
+        $this->assertEquals('value', Arr::getValue($testArray, 'key'));
+    }
+
+    public function testGetValueDefault()
+    {
+        $testArray = ['key' => 'value'];
+        $this->assertEquals('default', Arr::getValue($testArray, 'nonExistingKey', 'default'));
+    }
 }
 
 class TestObjectForObjectArray
