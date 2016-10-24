@@ -124,6 +124,49 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('otherField8', $errorMsgs);
     }
 
+    public function testValidateRequiredValueReturnsErrorMsg()
+    {
+        $result = $this->validator->validateValue(null, ['required' => true]);
+        $this->assertNotEmpty($result);
+        $result = $this->validator->validateValue('', ['required' => true]);
+        $this->assertNotEmpty($result);
+    }
+
+
+    public function testValidateRequiredValueDoesNotReturnErrorMsg()
+    {
+        $result = $this->validator->validateValue(null, ['required' => false]);
+        $this->assertEmpty($result);
+        $result = $this->validator->validateValue('0', ['required' => true]);
+        $this->assertEmpty($result);
+        $result = $this->validator->validateValue(0, ['required' => true]);
+        $this->assertEmpty($result);
+    }
+
+
+    public function testValidateNonEmptyValueReturnsErrorMsg()
+    {
+        $result = $this->validator->validateValue(null, ['nonEmpty' => true]);
+        $this->assertNotEmpty($result);
+        $result = $this->validator->validateValue('', ['nonEmpty' => true]);
+        $this->assertNotEmpty($result);
+        $result = $this->validator->validateValue('0', ['nonEmpty' => true]);
+        $this->assertNotEmpty($result);
+        $result = $this->validator->validateValue(0, ['nonEmpty' => true]);
+        $this->assertNotEmpty($result);
+    }
+
+
+    public function testValidateNonEmptyValueDoesNotReturnErrorMsg()
+    {
+        $result = $this->validator->validateValue(null, ['nonEmpty' => false]);
+        $this->assertEmpty($result);
+        $result = $this->validator->validateValue(true, ['nonEmpty' => true]);
+        $this->assertEmpty($result);
+        $result = $this->validator->validateValue('abc', ['nonEmpty' => true]);
+        $this->assertEmpty($result);
+    }
+
     public function testInvalidRuleRequired()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -200,6 +243,14 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->validator->validateValue(null, ['email' => 's']);
+    }
+
+    public function testInvalidEmailValueType()
+    {
+        $result = $this->validator->validateValue(['abc' => 1], ['email' => true]);
+        // Invalid value type should count in value not at all, ie. no error message
+        // without required or nonEmpty rule
+        $this->assertEmpty($result);
     }
 
     public function testInvalidDateTimeRule()

@@ -169,6 +169,8 @@ class Validator
         unset($rules['regexpExpl']);
         unset($rules['trim']);
 
+        $isValueSet = (is_scalar($value) || is_null($value)) && ((string) $value) !== '';
+
         foreach ($rules as $rule => $ruleContents) {
             $errorMsg = null;
 
@@ -178,7 +180,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid required validation rule[{$rule}]");
                     }
 
-                    if ($ruleContents && (((string) $value) === '')) {
+                    if ($ruleContents && !$isValueSet) {
                         $errorMsg = $this->translator->trans('errorFieldXIsRequired', ['%field%' => $fieldName]);
                     }
 
@@ -198,7 +200,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid min validation rule[{$ruleContents}]");
                     }
 
-                    if ($value < $ruleContents) {
+                    if (!is_numeric($value) || $value < $ruleContents) {
                         $fieldName =
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeMinNumber',
@@ -212,7 +214,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid max validation rule[{$ruleContents}]");
                     }
 
-                    if ($value > $ruleContents) {
+                    if (!is_numeric($value) || $value > $ruleContents) {
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeMaxNumber',
                             [
@@ -241,7 +243,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid max length validation rule[{$ruleContents}]");
                     }
 
-                    if ((((string) $value) !== '') && mb_strlen($value) > $ruleContents) {
+                    if ($isValueSet && mb_strlen($value) > $ruleContents) {
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeMaxXLength',
                             ['%field%' => $fieldName, '%numberOf%' => $ruleContents]
@@ -254,7 +256,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid length validation rule[{$ruleContents}]");
                     }
 
-                    if ((((string) $value) !== '') && mb_strlen($value) !== $ruleContents) {
+                    if ($isValueSet && mb_strlen($value) !== $ruleContents) {
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeXLength',
                             ['%field%' => $fieldName, '%numberOf%' => $ruleContents]
@@ -267,7 +269,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid regexp validation rule[{$ruleContents}]");
                     }
 
-                    if ((((string) $value) !== '') && !preg_match('/' . $ruleContents . '/', $value)) {
+                    if ($isValueSet && !preg_match('/' . $ruleContents . '/', $value)) {
                         $errorMsg = $this->translator->trans(
                             'errorFieldInvalidFormat',
                             ['%field%' => $fieldName]
@@ -287,7 +289,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid email validation rule[{$rule}]");
                     }
 
-                    if ($ruleContents && (((string) $value) !== '') && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                    if ($ruleContents && $isValueSet && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                         $errorMsg = $this->translator->trans('errorInvalidEmail');
                     }
 
@@ -299,7 +301,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid date validation rule[{$rule}]");
                     }
 
-                    if ($ruleContents && ((string) $value) !== '') {
+                    if ($ruleContents && $isValueSet) {
                         $isValueOk = function ($format) use ($value) {
                             return (\DateTime::createFromFormat($format, $value) !== false
                                 && !\DateTime::getLastErrors()["warning_count"]
