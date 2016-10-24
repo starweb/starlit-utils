@@ -200,7 +200,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid min validation rule[{$ruleContents}]");
                     }
 
-                    if (!is_numeric($value) || $value < $ruleContents) {
+                    if ($isValueSet && (!is_numeric($value) || $value < $ruleContents)) {
                         $fieldName =
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeMinNumber',
@@ -214,7 +214,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid max validation rule[{$ruleContents}]");
                     }
 
-                    if (!is_numeric($value) || $value > $ruleContents) {
+                    if ($isValueSet && (!is_numeric($value) || $value > $ruleContents)) {
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeMaxNumber',
                             [
@@ -230,7 +230,7 @@ class Validator
                         throw new \InvalidArgumentException("Invalid min length validation rule[{$ruleContents}]");
                     }
 
-                    if (mb_strlen($value) < $ruleContents) {
+                    if ($isValueSet && mb_strlen($value) < $ruleContents) {
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeMinXLength',
                             ['%field%' => $fieldName, '%numberOf%' => $ruleContents]
