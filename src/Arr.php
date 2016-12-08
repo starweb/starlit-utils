@@ -145,7 +145,7 @@ class Arr
     }
 
     /**
-     * Get a new array with all values cast to type.
+     * Get a new array with all scalar values cast to type.
      *
      * @param array  $inputArray
      * @param string $type
@@ -155,9 +155,11 @@ class Arr
     {
         $newArray = [];
         foreach ($inputArray as $key => $value) {
-            $newValue = $value;
-            settype($newValue, $type);
-            $newArray[$key] = $newValue;
+            if (is_scalar($value)) {
+                $newValue = $value;
+                settype($newValue, $type);
+                $newArray[$key] = $newValue;
+            }
         }
 
         return $newArray;
