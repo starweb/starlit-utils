@@ -92,6 +92,13 @@ class ArrTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('int', $resultArray[1]);
     }
 
+    public function testGetArrayValuesWithInvalidType()
+    {
+        $testArray = [['foo']];
+        $resultArray = Arr::valuesWithType($testArray, 'int');
+        $this->assertEmpty($resultArray);
+    }
+
     public function testReplaceExisting()
     {
         $result = Arr::replaceExisting(
