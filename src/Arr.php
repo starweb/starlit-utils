@@ -125,9 +125,9 @@ class Arr
     }
 
     /**
-     * collect values from method calls from an array of objects.
+     * Collect values from method calls from an array of objects.
      *
-     * Ee.g. get all product names from an array of products.
+     * E.g. get all product names from an array of products.
      *
      * @param array  $objectArray
      * @param string $methodName
@@ -167,7 +167,7 @@ class Arr
 
     /**
      * Replaces values in array1 with values from array2 comparing keys and
-     * discarding keys that doesn't exist in array1 .
+     * discarding keys that doesn't exist in array1.
      *
      * @param array $array1
      * @param array $array2
@@ -212,7 +212,7 @@ class Arr
      * @param array  $array
      * @param string $key
      * @param mixed  $default
-     * @return array
+     * @return mixed
      */
     public static function getValue(array $array, $key, $default = null)
     {
