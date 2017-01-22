@@ -201,7 +201,6 @@ class Validator
                     }
 
                     if ($isValueSet && (!is_numeric($value) || $value < $ruleContents)) {
-                        $fieldName =
                         $errorMsg = $this->translator->trans(
                             'errorFieldMustBeMinNumber',
                             ['%field%' => $fieldName, '%number%' => $ruleContents]

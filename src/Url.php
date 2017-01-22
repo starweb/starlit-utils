@@ -26,6 +26,9 @@ class Url
         $this->url = (string) $url;
     }
 
+    /**
+     * @return string
+     */
     public function getPath()
     {
         return parse_url($this->url, PHP_URL_PATH);

@@ -17,6 +17,7 @@ class Arr
 {
     /**
      * If any of the provided values is in an array.
+     *
      * This is a convenient function for constructs like in_array('val1', $a) || in_array('val2, $a) etc.
      *
      * @param array|string $anyValue Array of needles (will try any for a match)
@@ -34,6 +35,7 @@ class Arr
 
     /**
      * If all of the provided values is in an array.
+     *
      * This is a convenient function for constructs like in_array('val1', $a) && in_array('val2, $a) etc.
      *
      * @param array|mixed $allValues Array of needles (will try all for a match)
@@ -81,7 +83,7 @@ class Arr
     /**
      * Checks if all values in an array is empty (recursively).
      *
-     * Doesn't consider other arrays with empty values non-empty as the normal
+     * Does not consider other arrays with empty values non-empty as the normal
      * empty() function does.
      *
      * @param array|mixed $input
@@ -125,9 +127,7 @@ class Arr
     }
 
     /**
-     * collect values from method calls from an array of objects.
-     *
-     * Ee.g. get all product names from an array of products.
+     * Collect values from method calls from an array of objects.
      *
      * @param array  $objectArray
      * @param string $methodName
@@ -167,7 +167,7 @@ class Arr
 
     /**
      * Replaces values in array1 with values from array2 comparing keys and
-     * discarding keys that doesn't exist in array1 .
+     * discarding keys that doesn't exist in array1.
      *
      * @param array $array1
      * @param array $array2
