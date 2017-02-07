@@ -17,8 +17,9 @@ class Str
 {
     /**
      * CamelCases words or a dash name  (eg. "hey-you" or "hey you" becomes "heyYou").
+     *
      * NB! This method is only for property formatted separated none
-     * multibyte (UTF-8) ASCII strings. It doesn't handle malformed strings with
+     * multibyte (UTF-8) ASCII strings. It does not handle malformed strings with
      * a lot of other weird characters.
      *
      * @param string $separatorString
@@ -38,6 +39,7 @@ class Str
 
     /**
      * Converts CamelCase text to lowercase separator separated text (eg. "heyYou" becomes "hey-you").
+     *
      * NB! This method is only for none multibyte (UTF-8) ASCII strings.
      *
      * @param string $camelCaseString
@@ -145,6 +147,7 @@ class Str
 
     /**
      * Increment a string/separated string.
+     *
      * Example: "a-name" becomes "a-name-2", "a-name-3" and so on.
      *
      * @param string $string
