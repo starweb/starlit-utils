@@ -212,7 +212,7 @@ class Arr
      * @param array  $array
      * @param string $key
      * @param mixed  $default
-     * @return array
+     * @return mixed
      */
     public static function getValue(array $array, $key, $default = null)
     {
