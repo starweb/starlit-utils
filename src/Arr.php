@@ -214,7 +214,7 @@ class Arr
      * @param mixed  $default
      * @return mixed
      *
-     * @deprecated will be removed in v1.0.0 which required php7.2 and thus can be replaced by using the null coalescing operator
+     * @deprecated will be removed in v1.0.0 which requires php7.2 and thus can be replaced by using the null coalescing operator
      */
     public static function getValue(array $array, $key, $default = null)
     {
