@@ -2,7 +2,9 @@
 
 namespace Starlit\Utils;
 
-class ArrTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrTest extends TestCase
 {
     public function testAnyIn()
     {
@@ -14,7 +16,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
     public function testAnyInIsFalse()
     {
         $array = [1, 2, 3];
-        $this->assertFalse(Arr::anyIn([4 ,5 ,6], $array));
+        $this->assertFalse(Arr::anyIn([4, 5, 6], $array));
         $this->assertFalse(Arr::anyIn(6, $array));
     }
 
@@ -88,8 +90,8 @@ class ArrTest extends \PHPUnit_Framework_TestCase
     {
         $testArray = ['1', 'a'];
         $resultArray = Arr::valuesWithType($testArray, 'int');
-        $this->assertInternalType('int', $resultArray[0]);
-        $this->assertInternalType('int', $resultArray[1]);
+        $this->assertIsInt($resultArray[0]);
+        $this->assertIsInt($resultArray[1]);
     }
 
     public function testGetArrayValuesWithInvalidType()
@@ -156,18 +158,6 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 
         // It should be sorted correctly
         $this->assertEquals($desiredArray, $sortedArray);
-    }
-
-    public function testGetValue()
-    {
-        $testArray = ['key' => 'value'];
-        $this->assertEquals('value', Arr::getValue($testArray, 'key'));
-    }
-
-    public function testGetValueDefault()
-    {
-        $testArray = ['key' => 'value'];
-        $this->assertEquals('default', Arr::getValue($testArray, 'nonExistingKey', 'default'));
     }
 }
 

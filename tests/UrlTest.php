@@ -2,7 +2,9 @@
 
 namespace Starlit\Utils;
 
-class UrlTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class UrlTest extends TestCase
 {
     /**
      * @var Url

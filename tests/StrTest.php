@@ -2,7 +2,9 @@
 
 namespace Starlit\Utils;
 
-class StrTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class StrTest extends TestCase
 {
 
     public function testSeparatorToCamelCase()
