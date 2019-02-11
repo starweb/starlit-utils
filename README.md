@@ -12,7 +12,7 @@ $ composer require starlit/utils
 ```
 
 ## Requirements
-- Requires PHP 5.6 or above.
+- Requires PHP 7.1 or above.
 
 ## License
 This software is licensed under the BSD 3-Clause License - see the `LICENSE` file for details.

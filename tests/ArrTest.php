@@ -2,7 +2,9 @@
 
 namespace Starlit\Utils;
 
-class ArrTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ArrTest extends TestCase
 {
     public function testAnyIn()
     {
@@ -14,7 +16,7 @@ class ArrTest extends \PHPUnit_Framework_TestCase
     public function testAnyInIsFalse()
     {
         $array = [1, 2, 3];
-        $this->assertFalse(Arr::anyIn([4 ,5 ,6], $array));
+        $this->assertFalse(Arr::anyIn([4, 5, 6], $array));
         $this->assertFalse(Arr::anyIn(6, $array));
     }
 
@@ -139,16 +141,16 @@ class ArrTest extends \PHPUnit_Framework_TestCase
             3 => '1',
         ];
         $arrayObjects = [
-            1 => (object) ['id' => 1],
-            3 => (object) ['id' => 3],
-            4 => (object) ['id' => 4],
-            5 => (object) ['id' => 5]
+            1 => (object)['id' => 1],
+            3 => (object)['id' => 3],
+            4 => (object)['id' => 4],
+            5 => (object)['id' => 5]
         ];
         $desiredArray = [
-            0 => (object) ['id' => 4],
-            1 => (object) ['id' => 3],
-            2 => (object) ['id' => 5],
-            3 => (object) ['id' => 1]
+            0 => (object)['id' => 4],
+            1 => (object)['id' => 3],
+            2 => (object)['id' => 5],
+            3 => (object)['id' => 1]
         ];
 
         // Sort the array
@@ -156,18 +158,6 @@ class ArrTest extends \PHPUnit_Framework_TestCase
 
         // It should be sorted correctly
         $this->assertEquals($desiredArray, $sortedArray);
-    }
-
-    public function testGetValue()
-    {
-        $testArray = ['key' => 'value'];
-        $this->assertEquals('value', Arr::getValue($testArray, 'key'));
-    }
-
-    public function testGetValueDefault()
-    {
-        $testArray = ['key' => 'value'];
-        $this->assertEquals('default', Arr::getValue($testArray, 'nonExistingKey', 'default'));
     }
 }
 
