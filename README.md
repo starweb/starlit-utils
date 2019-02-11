@@ -11,8 +11,8 @@ Add the package as a requirement to your `composer.json`:
 $ composer require starlit/utils
 ```
 
-##Requirements
+## Requirements
 - Requires PHP 5.6 or above.
 
-##License
+## License
 This software is licensed under the BSD 3-Clause License - see the `LICENSE` file for details.
