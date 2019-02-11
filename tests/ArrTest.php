@@ -90,8 +90,8 @@ class ArrTest extends TestCase
     {
         $testArray = ['1', 'a'];
         $resultArray = Arr::valuesWithType($testArray, 'int');
-        $this->assertInternalType('int', $resultArray[0]);
-        $this->assertInternalType('int', $resultArray[1]);
+        $this->assertIsInt($resultArray[0]);
+        $this->assertIsInt($resultArray[1]);
     }
 
     public function testGetArrayValuesWithInvalidType()
@@ -141,16 +141,16 @@ class ArrTest extends TestCase
             3 => '1',
         ];
         $arrayObjects = [
-            1 => (object)['id' => 1],
-            3 => (object)['id' => 3],
-            4 => (object)['id' => 4],
-            5 => (object)['id' => 5]
+            1 => (object) ['id' => 1],
+            3 => (object) ['id' => 3],
+            4 => (object) ['id' => 4],
+            5 => (object) ['id' => 5]
         ];
         $desiredArray = [
-            0 => (object)['id' => 4],
-            1 => (object)['id' => 3],
-            2 => (object)['id' => 5],
-            3 => (object)['id' => 1]
+            0 => (object) ['id' => 4],
+            1 => (object) ['id' => 3],
+            2 => (object) ['id' => 5],
+            3 => (object) ['id' => 1]
         ];
 
         // Sort the array
