@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Starlit\Utils;
 
@@ -16,18 +16,18 @@ class UrlTest extends TestCase
      */
     private $absoluteUrl;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->relativeUrl = new Url('/about');
         $this->absoluteUrl = new Url('http://www.example.org/about?search=hello&page=2#bottom');
     }
 
-    public function testGetPath()
+    public function testGetPath(): void
     {
         $this->assertEquals('/about', $this->absoluteUrl->getPath());
     }
 
-    public function testReplacePath()
+    public function testReplacePath(): void
     {
         $this->assertEquals(
             'http://www.example.org/signup?search=hello&page=2#bottom',
@@ -36,35 +36,35 @@ class UrlTest extends TestCase
     }
 
 
-    public function testReplacePathWithEmptyUrl()
+    public function testReplacePathWithEmptyUrl(): void
     {
         $emptyUrl = new Url('');
         $this->assertEquals('/signup', (string) $emptyUrl->replacePath('/signup'));
     }
 
-    public function testGetQuery()
+    public function testGetQuery(): void
     {
         $this->assertEquals('search=hello&page=2', $this->absoluteUrl->getQuery());
     }
 
-    public function testGetFragment()
+    public function testGetFragment(): void
     {
         $this->assertEquals('bottom', $this->absoluteUrl->getFragment());
     }
 
-    public function testGetQueryParameters()
+    public function testGetQueryParameters(): void
     {
         $expectedParameters = ['search' => 'hello', 'page' => 2];
 
         $this->assertEquals($expectedParameters, $this->absoluteUrl->getQueryParameters());
     }
 
-    public function testWithoutQueryAndFragment()
+    public function testWithoutQueryAndFragment(): void
     {
         $this->assertEquals('http://www.example.org/about', (string) $this->absoluteUrl->withoutQueryAndFragment());
     }
 
-    public function testAddQueryParameter()
+    public function testAddQueryParameter(): void
     {
         $this->assertEquals(
             'http://www.example.org/about?search=hello&page=3&order=asc#bottom',
@@ -72,7 +72,7 @@ class UrlTest extends TestCase
         );
     }
 
-    public function testAddQueryParameterNoMerge()
+    public function testAddQueryParameterNoMerge(): void
     {
         $this->assertEquals(
             'http://www.example.org/about?search=hello&page=2&order=asc#bottom',

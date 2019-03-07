@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Utils.
  *
@@ -21,24 +21,24 @@ class Url
     /**
      * @param string $url
      */
-    public function __construct($url)
+    public function __construct(string $url)
     {
-        $this->url = (string) $url;
+        $this->url = $url;
     }
 
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return parse_url($this->url, PHP_URL_PATH);
     }
 
     /**
      * @param string $newPath
-     * @return self
+     * @return string|self
      */
-    public function replacePath($newPath)
+    public function replacePath(string $newPath)
     {
         if (!$this->url) {
             return $newPath;
@@ -52,7 +52,7 @@ class Url
     /**
      * @return string
      */
-    public function getQuery()
+    public function getQuery(): string
     {
         return parse_url($this->url, PHP_URL_QUERY);
     }
@@ -60,7 +60,7 @@ class Url
     /**
      * @return string
      */
-    public function getFragment()
+    public function getFragment(): string
     {
         return parse_url($this->url, PHP_URL_FRAGMENT);
     }
@@ -68,7 +68,7 @@ class Url
     /**
      * @return array
      */
-    public function getQueryParameters()
+    public function getQueryParameters(): array
     {
         $parameters = [];
         parse_str($this->getQuery(), $parameters);
@@ -79,7 +79,7 @@ class Url
     /**
      * @return self
      */
-    public function withoutQueryAndFragment()
+    public function withoutQueryAndFragment(): self
     {
         if (($pos = strpos($this->url, '?')) !== false) {
             $this->url = substr($this->url, 0, $pos);
@@ -94,7 +94,7 @@ class Url
      * @param string $argSeparator
      * @return self
      */
-    public function addQueryParameters(array $newParameters = [], $merge = true, $argSeparator = '&')
+    public function addQueryParameters(array $newParameters = [], bool $merge = true, string $argSeparator = '&'): self
     {
         $currentParameters = $this->getQueryParameters();
         if ($merge) {
@@ -120,7 +120,7 @@ class Url
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->url;
     }

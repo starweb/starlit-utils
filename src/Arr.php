@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Utils.
  *
@@ -24,7 +24,7 @@ class Arr
      * @param array        $array    Haystack array
      * @return bool
      */
-    public static function anyIn($anyValue, $array)
+    public static function anyIn($anyValue, $array): bool
     {
         if (is_array($anyValue)) {
             return (bool) array_intersect($anyValue, $array);
@@ -42,7 +42,7 @@ class Arr
      * @param array       $array     Haystack array
      * @return bool
      */
-    public static function allIn($allValues, $array)
+    public static function allIn($allValues, $array): bool
     {
         if (is_array($allValues)) {
             if (empty($allValues)) {
@@ -69,7 +69,7 @@ class Arr
      * @param string $prefix
      * @return array
      */
-    public static function valuesWithPrefix(array $array, $prefix)
+    public static function valuesWithPrefix(array $array, $prefix): array
     {
         $newArray = [];
         foreach ($array as $oldValue) {
@@ -89,7 +89,7 @@ class Arr
      * @param array|mixed $input
      * @return bool
      */
-    public static function allEmpty($input)
+    public static function allEmpty($input): bool
     {
         if (is_array($input)) {
             foreach ($input as $value) {
@@ -111,7 +111,7 @@ class Arr
      * @param array|callable|null $keysOrCallable
      * @return array
      */
-    public static function filterKeys(array $inputArray, $keysOrCallable = null)
+    public static function filterKeys(array $inputArray, $keysOrCallable = null): array
     {
         // Get keys
         if (is_array($keysOrCallable)) {
@@ -133,7 +133,7 @@ class Arr
      * @param string $methodName
      * @return array
      */
-    public static function objectsMethodValues(array $objectArray, $methodName)
+    public static function objectsMethodValues(array $objectArray, string $methodName): array
     {
         $methodValues = [];
 
@@ -151,7 +151,7 @@ class Arr
      * @param string $type
      * @return array
      */
-    public static function valuesWithType(array $inputArray, $type)
+    public static function valuesWithType(array $inputArray, string $type): array
     {
         $newArray = [];
         foreach ($inputArray as $key => $value) {
@@ -174,7 +174,7 @@ class Arr
      * @param bool  $recursive
      * @return array
      */
-    public static function replaceExisting(array $array1, array $array2, $recursive = false)
+    public static function replaceExisting(array $array1, array $array2, bool $recursive = false): array
     {
         foreach ($array1 as $key => $value) {
             if (array_key_exists($key, $array2)) {
@@ -196,7 +196,7 @@ class Arr
      * @param array $mapArray
      * @return array
      */
-    public static function sortByArray(array $sortArray, array $mapArray)
+    public static function sortByArray(array $sortArray, array $mapArray): array
     {
         $sortedArray = [];
         foreach ((array) $mapArray as $id) {
