@@ -28,7 +28,7 @@ class Str
      * @return string
      */
     public static function separatorToCamel(
-        $separatorString,
+        string $separatorString,
         string $separator = '_',
         bool $upperCamelCase = false
     ): string {
