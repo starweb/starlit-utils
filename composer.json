@@ -5,13 +5,15 @@
     "keywords": ["util", "utils", "utilities"],
     "homepage": "http://github.com/starweb/starlit-utils",
     "license": "BSD-3-Clause",
+    "version": "1.0.x-dev",
     "authors": [
         {
             "name": "Starweb AB"
         }
     ],
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.1",
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"

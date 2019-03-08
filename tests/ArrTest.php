@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Starlit\Utils;
 
@@ -6,21 +6,21 @@ use PHPUnit\Framework\TestCase;
 
 class ArrTest extends TestCase
 {
-    public function testAnyIn()
+    public function testAnyIn(): void
     {
         $array = [1, 2, 3];
         $this->assertTrue(Arr::anyIn([1, 2, 3], $array));
         $this->assertTrue(Arr::anyIn(1, $array));
     }
 
-    public function testAnyInIsFalse()
+    public function testAnyInIsFalse(): void
     {
         $array = [1, 2, 3];
         $this->assertFalse(Arr::anyIn([4, 5, 6], $array));
         $this->assertFalse(Arr::anyIn(6, $array));
     }
 
-    public function testAllIn()
+    public function testAllIn(): void
     {
         $array = [1, 2, 3];
         $this->assertTrue(Arr::allIn([1, 2, 3], $array));
@@ -29,39 +29,39 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::allIn([1, 2, 3], []));
     }
 
-    public function testAllInFalse()
+    public function testAllInFalse(): void
     {
         $array = [1, 2, 3];
         $this->assertFalse(Arr::allIn([1, 2, 3, 4], $array));
         $this->assertFalse(Arr::allIn([4], $array));
     }
 
-    public function testGetArrayValuesWithPrefix()
+    public function testGetArrayValuesWithPrefix(): void
     {
         $oldArray = ['one', 'two'];
         $newArray = Arr::valuesWithPrefix($oldArray, 'prefix');
         $this->assertEquals($newArray[1], 'prefixtwo');
     }
 
-    public function testAllEmpty()
+    public function testAllEmpty(): void
     {
         $this->assertTrue(Arr::allEmpty(['one' => null, 'two' => 0, 'three' => ['subone' => '']]));
         $this->assertTrue(Arr::allEmpty([]));
     }
 
-    public function testArrayAllEmptyNotEmpty()
+    public function testArrayAllEmptyNotEmpty(): void
     {
         $this->assertFalse(Arr::allEmpty(['one' => null, 'two' => 1, 'three' => ['subone' => '']]));
         $this->assertFalse(Arr::allEmpty(['one' => null, 'two' => 1, 'three' => ['subone' => 'a']]));
     }
 
-    public function testArrayFilterKeysValues()
+    public function testArrayFilterKeysValues(): void
     {
         $array = ['a' => 1, 'b' => 2, 'c' => 3];
         $this->assertEquals(['c' => 3], Arr::filterKeys($array, ['c']));
     }
 
-    public function testArrayFilterKeysCallback()
+    public function testArrayFilterKeysCallback(): void
     {
         $array = [1 => 'a', false => 'b', 3 => 'c'];
         $this->assertEquals([false => 'b'], Arr::filterKeys($array, function ($key) {
@@ -69,13 +69,13 @@ class ArrTest extends TestCase
         }));
     }
 
-    public function testArrayFilterKeys()
+    public function testArrayFilterKeys(): void
     {
         $array = [1 => 'a', false => 'b', 3 => 'c'];
         $this->assertEquals([1 => 'a', 3 => 'c'], Arr::filterKeys($array));
     }
 
-    public function testGetObjectArrayMethodValues()
+    public function testGetObjectArrayMethodValues(): void
     {
         $object1 = new TestObjectForObjectArray(1);
         $object2 = new TestObjectForObjectArray(2);
@@ -86,7 +86,7 @@ class ArrTest extends TestCase
         $this->assertEquals([1, 2, 3], Arr::objectsMethodValues($objectArray, 'getValue'));
     }
 
-    public function testGetArrayValuesWithType()
+    public function testGetArrayValuesWithType(): void
     {
         $testArray = ['1', 'a'];
         $resultArray = Arr::valuesWithType($testArray, 'int');
@@ -94,14 +94,14 @@ class ArrTest extends TestCase
         $this->assertIsInt($resultArray[1]);
     }
 
-    public function testGetArrayValuesWithInvalidType()
+    public function testGetArrayValuesWithInvalidType(): void
     {
         $testArray = [['foo']];
         $resultArray = Arr::valuesWithType($testArray, 'int');
         $this->assertEmpty($resultArray);
     }
 
-    public function testReplaceExisting()
+    public function testReplaceExisting(): void
     {
         $result = Arr::replaceExisting(
             ['a' => 1, 'b' => 2, 'c' => 3],
@@ -111,7 +111,7 @@ class ArrTest extends TestCase
         $this->assertEquals(['a' => 100, 'b' => 2, 'c' => 3], $result);
     }
 
-    public function testReplaceExistingMultiDimensional()
+    public function testReplaceExistingMultiDimensional(): void
     {
         $result = Arr::replaceExisting(
             ['a' => 1, 'm' => ['b' => 2, 'c' => 3]],
@@ -121,7 +121,7 @@ class ArrTest extends TestCase
         $this->assertEquals(['a' => 1, 'm' => ['b' => 200, 'd' => 300]], $result);
     }
 
-    public function testReplaceExistingMultiDimensionalRecursive()
+    public function testReplaceExistingMultiDimensionalRecursive(): void
     {
         $result = Arr::replaceExisting(
             ['a' => 1, 'm' => ['b' => 2, 'c' => 3]],
@@ -132,7 +132,7 @@ class ArrTest extends TestCase
         $this->assertEquals(['a' => 1, 'm' => ['b' => 200, 'c' => 3]], $result);
     }
 
-    public function testSortByArray()
+    public function testSortByArray(): void
     {
         $arrayIndexes = [
             0 => '4',
@@ -163,14 +163,17 @@ class ArrTest extends TestCase
 
 class TestObjectForObjectArray
 {
+    /**
+     * @var int
+     */
     private $value;
 
-    public function __construct($value)
+    public function __construct(int $value)
     {
         $this->value = $value;
     }
 
-    public function getValue()
+    public function getValue(): int
     {
         return $this->value;
     }

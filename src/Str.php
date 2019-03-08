@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Utils.
  *
@@ -27,8 +27,11 @@ class Str
      * @param bool   $upperCamelCase If first character should be capitalized (eg. "HeyYou" instead of "heyYou")
      * @return string
      */
-    public static function separatorToCamel($separatorString, $separator = '_', $upperCamelCase = false)
-    {
+    public static function separatorToCamel(
+        string $separatorString,
+        string $separator = '_',
+        bool $upperCamelCase = false
+    ): string {
         // Using PHP's built in functions seem to be a bit 30% faster than a regular expression replace
         $wordStr = str_replace($separator, ' ', strtolower($separatorString));
         $wordsCapitalized = ucwords($wordStr);
@@ -46,7 +49,7 @@ class Str
      * @param string $separator
      * @return string
      */
-    public static function camelToSeparator($camelCaseString, $separator = '_')
+    public static function camelToSeparator(string $camelCaseString, string $separator = '_'): string
     {
         $separatedString = preg_replace('/([a-zA-Z])([A-Z])/', '$1' . $separator . '$2', $camelCaseString);
         $separatedString = preg_replace('/([A-Z0-9])([A-Z])/', '$1' . $separator . '$2', $separatedString);
@@ -61,7 +64,7 @@ class Str
      * @param string $characters
      * @return string
      */
-    public static function random($charCount, $characters = 'abcdefghijklmnopqrstuvqxyz0123456789')
+    public static function random(int $charCount, string $characters = 'abcdefghijklmnopqrstuvqxyz0123456789'): string
     {
         $randomString = '';
         for ($i = 0; $i < $charCount; $i++) {
@@ -80,7 +83,7 @@ class Str
      * @param string $indicator
      * @return string
      */
-    public static function truncate($string, $maxLength, $indicator = '...')
+    public static function truncate(string $string, int $maxLength, string $indicator = '...'): string
     {
         if (mb_strlen($string) > $maxLength) {
             $string = mb_substr($string, 0, $maxLength - mb_strlen($indicator)) . $indicator;
@@ -96,7 +99,7 @@ class Str
      * @param string $search
      * @return bool
      */
-    public static function startsWith($string, $search)
+    public static function startsWith(string $string, string $search): bool
     {
         return strpos($string, $search) === 0;
     }
@@ -108,7 +111,7 @@ class Str
      * @param string $search
      * @return bool
      */
-    public static function endsWith($string, $search)
+    public static function endsWith(string $string, string $search): bool
     {
         return (substr($string, -strlen($search)) === $search);
     }
@@ -120,7 +123,7 @@ class Str
      * @param string $strip
      * @return string
      */
-    public static function stripLeft($string, $strip)
+    public static function stripLeft(string $string, string $strip): string
     {
         if (self::startsWith($string, $strip)) {
             return substr($string, strlen($strip));
@@ -136,7 +139,7 @@ class Str
      * @param string $strip
      * @return string
      */
-    public static function stripRight($string, $strip)
+    public static function stripRight(string $string, string $strip): string
     {
         if (self::endsWith($string, $strip)) {
             return substr($string, 0, -strlen($strip));
@@ -154,7 +157,7 @@ class Str
      * @param string $separator
      * @return string
      */
-    public static function incrementSeparated($string, $separator = '-')
+    public static function incrementSeparated(string $string, string $separator = '-'): string
     {
         if (preg_match('/' . $separator . '(\d+)$/', $string, $matches)) {
             $string = self::stripRight($string, $separator . $matches[1]);
@@ -172,7 +175,7 @@ class Str
      * @param string $string
      * @return string
      */
-    public static function uppercaseFirst($string)
+    public static function uppercaseFirst(string $string): string
     {
         $length = mb_strlen($string);
         $firstChar = mb_substr($string, 0, 1);
@@ -189,7 +192,7 @@ class Str
      * @param bool   $allowNegative
      * @return string
      */
-    public static function toNumber($string, $allowDecimal = false, $allowNegative = false)
+    public static function toNumber(string $string, bool $allowDecimal = false, bool $allowNegative = false): string
     {
         $string = trim($string);
 
@@ -230,7 +233,7 @@ class Str
      * @param string $subject
      * @return string
      */
-    public static function replaceFirst($search, $replace, $subject)
+    public static function replaceFirst(string $search,string  $replace,string  $subject): string
     {
         if (($pos = strpos($subject, $search)) !== false) {
             return substr_replace($subject, $replace, $pos, strlen($search));
