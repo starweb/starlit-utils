@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Starlit\Utils;
 
@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class StrTest extends TestCase
 {
 
-    public function testSeparatorToCamelCase()
+    public function testSeparatorToCamelCase(): void
     {
         $this->assertEquals('heyYou', Str::separatorToCamel('hey_you'));
         $this->assertEquals('heyYou', Str::separatorToCamel('hey-you', '-'));
@@ -23,12 +23,12 @@ class StrTest extends TestCase
         $this->assertEquals('testOMatic', Str::separatorToCamel('test-o-matic', '-'));
     }
 
-    public function testSeparatorToCamelCaseUpper()
+    public function testSeparatorToCamelCaseUpper(): void
     {
         $this->assertEquals('HeyYou', Str::separatorToCamel('hey_you', '_', true));
     }
 
-    public function testCamelCaseToSeparator()
+    public function testCamelCaseToSeparator(): void
     {
         $this->assertEquals('hey_you', Str::camelToSeparator('heyYou'));
         $this->assertEquals('hey_you', Str::camelToSeparator('HeyYou'));
@@ -43,53 +43,53 @@ class StrTest extends TestCase
         $this->assertEquals('test-o-matic', Str::camelToSeparator('testOMatic', '-'));
     }
 
-    public function testRandom()
+    public function testRandom(): void
     {
         $str = Str::random(10);
         $this->assertEquals(10, strlen($str));
     }
 
-    public function testTruncate()
+    public function testTruncate(): void
     {
         $str = Str::truncate('abcdefghij', 5);
         $this->assertEquals($str, 'ab...');
     }
 
-    public function testStartsWith()
+    public function testStartsWith(): void
     {
         $this->assertTrue(Str::startsWith('abcdefghij', 'abc'));
     }
 
-    public function testStartsWithIsFalse()
+    public function testStartsWithIsFalse(): void
     {
         $this->assertFalse(Str::startsWith('abcdefghij', 'ahh'));
     }
 
-    public function testEndsWith()
+    public function testEndsWith(): void
     {
         $this->assertTrue(Str::endsWith('abcdefghij', 'hij'));
     }
 
-    public function testEndsWithIsFalse()
+    public function testEndsWithIsFalse(): void
     {
         $this->assertFalse(Str::endsWith('abcdefghij', 'ehh'));
     }
 
-    public function testStripLeft()
+    public function testStripLeft(): void
     {
         $str = Str::stripLeft('abcdefghij', 'abc');
         $this->assertEquals($str, 'defghij');
         $this->assertEquals(Str::stripLeft('hij', 'abc'), 'hij');
     }
 
-    public function testStripRight()
+    public function testStripRight(): void
     {
         $str = Str::stripRight('abcdefghij', 'hij');
         $this->assertEquals($str, 'abcdefg');
         $this->assertEquals(Str::stripRight('abc', 'hij'), 'abc');
     }
 
-    public function testToNumber()
+    public function testToNumber(): void
     {
         $this->assertSame('0', Str::toNumber('0'));
         $this->assertSame('0', Str::toNumber('000'));
@@ -100,7 +100,7 @@ class StrTest extends TestCase
         $this->assertSame('0', Str::toNumber('-123'));
     }
 
-    public function testToNumberAllowDecimal()
+    public function testToNumberAllowDecimal(): void
     {
         $this->assertSame('123.45', Str::toNumber('123.4500', true));
         $this->assertSame('123.45', Str::toNumber('123.45', true));
@@ -109,7 +109,7 @@ class StrTest extends TestCase
         $this->assertSame('1234567890.5', Str::toNumber('[)c12345q67n890!!.5', true));
     }
 
-    public function testToNumberAllowNegative()
+    public function testToNumberAllowNegative(): void
     {
         $this->assertSame('0', Str::toNumber('-0', false, true));
         $this->assertSame('-123', Str::toNumber('-123', false, true));
@@ -118,21 +118,21 @@ class StrTest extends TestCase
         $this->assertSame('123123', Str::toNumber('123-123', false, true));
     }
 
-    public function testIncrementSeparated()
+    public function testIncrementSeparated(): void
     {
         $this->assertEquals('a-name-2', Str::incrementSeparated('a-name'));
         $this->assertEquals('a-name-3', Str::incrementSeparated('a-name-2'));
         $this->assertEquals('a-name-12', Str::incrementSeparated('a-name-11'));
     }
 
-    public function testUppercaseFirst()
+    public function testUppercaseFirst(): void
     {
         $this->assertEquals('Aname', Str::uppercaseFirst('aname'));
         $this->assertEquals('Aname', Str::uppercaseFirst('Aname'));
         $this->assertEquals('Öname', Str::uppercaseFirst('öname'));
     }
 
-    public function testReplaceFirst()
+    public function testReplaceFirst(): void
     {
         $this->assertEquals('HEY two tree one', Str::replaceFirst('one', 'HEY', 'one two tree one'));
         $this->assertEquals('HEYone two tree', Str::replaceFirst('one', 'HEY', 'oneone two tree'));
