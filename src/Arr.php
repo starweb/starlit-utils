@@ -24,7 +24,7 @@ class Arr
      * @param array        $array    Haystack array
      * @return bool
      */
-    public static function anyIn($anyValue, $array): bool
+    public static function anyIn($anyValue, array $array): bool
     {
         if (is_array($anyValue)) {
             return (bool) array_intersect($anyValue, $array);
@@ -42,7 +42,7 @@ class Arr
      * @param array       $array     Haystack array
      * @return bool
      */
-    public static function allIn($allValues, $array): bool
+    public static function allIn($allValues, array $array): bool
     {
         if (is_array($allValues)) {
             if (empty($allValues)) {
