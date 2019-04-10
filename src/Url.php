@@ -52,7 +52,7 @@ class Url
     /**
      * @return string
      */
-    public function getQuery(): string
+    public function getQuery(): ?string
     {
         return parse_url($this->url, PHP_URL_QUERY);
     }
@@ -60,7 +60,7 @@ class Url
     /**
      * @return string
      */
-    public function getFragment(): string
+    public function getFragment(): ?string
     {
         return parse_url($this->url, PHP_URL_FRAGMENT);
     }
@@ -71,7 +71,9 @@ class Url
     public function getQueryParameters(): array
     {
         $parameters = [];
-        parse_str($this->getQuery(), $parameters);
+        if ($this->getQuery() !== null) {
+            parse_str($this->getQuery(), $parameters);
+        }
 
         return $parameters;
     }
