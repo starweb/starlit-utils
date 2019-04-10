@@ -54,7 +54,7 @@ class Url
     {
         $parameters = [];
         if (($query = $this->getQuery()) !== null) {
-            parse_str($this->getQuery(), $parameters);
+            parse_str($query, $parameters);
         }
 
         return $parameters;
