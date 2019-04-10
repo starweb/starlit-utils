@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - bug where parse_url can return null for query and fragment components
 
 ### Changed
-- removed not needed 
+- removed unnecessary  PHPDocs
 - use anonymous class in test instead of additional class in the same file 
 
 ## [1.1.0] - 2019-03-08
