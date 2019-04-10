@@ -77,9 +77,9 @@ class ArrTest extends TestCase
 
     public function testGetObjectArrayMethodValues(): void
     {
-        $object1 = new TestObjectForObjectArray(1);
-        $object2 = new TestObjectForObjectArray(2);
-        $object3 = new TestObjectForObjectArray(3);
+        $object1 = $this->getTestObjectForObjectArray(1);
+        $object2 = $this->getTestObjectForObjectArray(2);
+        $object3 = $this->getTestObjectForObjectArray(3);
 
         $objectArray = [$object1, $object2, $object3];
 
@@ -159,22 +159,24 @@ class ArrTest extends TestCase
         // It should be sorted correctly
         $this->assertEquals($desiredArray, $sortedArray);
     }
-}
 
-class TestObjectForObjectArray
-{
-    /**
-     * @var int
-     */
-    private $value;
-
-    public function __construct(int $value)
+    protected function getTestObjectForObjectArray(int $value)
     {
-        $this->value = $value;
-    }
+        return (new class($value) {
+            /**
+             * @var int
+             */
+            private $value;
 
-    public function getValue(): int
-    {
-        return $this->value;
+            public function __construct(int $value)
+            {
+                $this->value = $value;
+            }
+
+            public function getValue(): int
+            {
+                return $this->value;
+            }
+        });
     }
 }

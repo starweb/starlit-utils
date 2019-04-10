@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class StrTest extends TestCase
 {
-
     public function testSeparatorToCamelCase(): void
     {
         $this->assertEquals('heyYou', Str::separatorToCamel('hey_you'));

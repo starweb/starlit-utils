@@ -8,9 +8,6 @@
 
 namespace Starlit\Utils;
 
-/**
- * @author Andreas Nilsson <http://github.com/jandreasn>
- */
 class Url
 {
     /**
@@ -18,17 +15,11 @@ class Url
      */
     protected $url;
 
-    /**
-     * @param string $url
-     */
     public function __construct(string $url)
     {
         $this->url = $url;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return parse_url($this->url, PHP_URL_PATH);
@@ -49,36 +40,26 @@ class Url
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getQuery(): string
+    public function getQuery(): ?string
     {
         return parse_url($this->url, PHP_URL_QUERY);
     }
 
-    /**
-     * @return string
-     */
-    public function getFragment(): string
+    public function getFragment(): ?string
     {
         return parse_url($this->url, PHP_URL_FRAGMENT);
     }
 
-    /**
-     * @return array
-     */
     public function getQueryParameters(): array
     {
         $parameters = [];
-        parse_str($this->getQuery(), $parameters);
+        if (($query = $this->getQuery()) !== null) {
+            parse_str($query, $parameters);
+        }
 
         return $parameters;
     }
 
-    /**
-     * @return self
-     */
     public function withoutQueryAndFragment(): self
     {
         if (($pos = strpos($this->url, '?')) !== false) {
@@ -117,9 +98,6 @@ class Url
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return $this->url;

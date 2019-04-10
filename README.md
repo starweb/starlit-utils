@@ -16,3 +16,8 @@ $ composer require starlit/utils
 
 ## License
 This software is licensed under the BSD 3-Clause License - see the `LICENSE` file for details.
+
+
+## Credits
+- [@jandreasn](https://github.com/jandreasn)
+- [All contributors](https://github.com/starweb/starlit-utils/contributors)
