@@ -8,11 +8,6 @@
 
 namespace Starlit\Utils;
 
-/**
- * Array utilities.
- *
- * @author Andreas Nilsson <http://github.com/jandreasn>
- */
 class Arr
 {
     /**

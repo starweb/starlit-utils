@@ -8,11 +8,6 @@
 
 namespace Starlit\Utils;
 
-/**
- * String utilities.
- *
- * @author Andreas Nilsson <http://github.com/jandreasn>
- */
 class Str
 {
     /**
