@@ -53,7 +53,7 @@ class Url
     public function getQueryParameters(): array
     {
         $parameters = [];
-        if ($this->getQuery() !== null) {
+        if (($query = $this->getQuery()) !== null) {
             parse_str($this->getQuery(), $parameters);
         }
 
