@@ -22,7 +22,9 @@ class Url
 
     public function getPath(): string
     {
-        return ($urlPath = parse_url($this->url, PHP_URL_PATH)) === false ? '' : $urlPath;
+        $urlPath = parse_url($this->url, PHP_URL_PATH);
+
+        return $urlPath === false ? '' : $urlPath;
     }
 
     /**
@@ -42,12 +44,16 @@ class Url
 
     public function getQuery(): ?string
     {
-        return ($urlQuery = parse_url($this->url, PHP_URL_QUERY)) === false ? null : $urlQuery;
+        $urlQuery = parse_url($this->url, PHP_URL_QUERY);
+
+        return $urlQuery === false ? null : $urlQuery;
     }
 
     public function getFragment(): ?string
     {
-        return ($urlFragment = parse_url($this->url, PHP_URL_FRAGMENT)) === false ? null : $urlFragment;
+        $urlFragment = parse_url($this->url, PHP_URL_FRAGMENT);
+
+        return $urlFragment === false ? null : $urlFragment;
     }
 
     public function getQueryParameters(): array
