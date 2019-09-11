@@ -22,7 +22,7 @@ class Url
 
     public function getPath(): string
     {
-        return parse_url($this->url, PHP_URL_PATH);
+        return ($urlPath = parse_url($this->url, PHP_URL_PATH)) === false ? '' : $urlPath;
     }
 
     /**
@@ -42,12 +42,12 @@ class Url
 
     public function getQuery(): ?string
     {
-        return parse_url($this->url, PHP_URL_QUERY);
+        return ($urlQuery = parse_url($this->url, PHP_URL_QUERY)) === false ? null : $urlQuery;
     }
 
     public function getFragment(): ?string
     {
-        return parse_url($this->url, PHP_URL_FRAGMENT);
+        return ($urlFragment = parse_url($this->url, PHP_URL_FRAGMENT)) === false ? null : $urlFragment;
     }
 
     public function getQueryParameters(): array
