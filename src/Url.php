@@ -20,11 +20,11 @@ class Url
         $this->url = $url;
     }
 
-    public function getPath(): string
+    public function getPath(): ?string
     {
         $urlPath = parse_url($this->url, PHP_URL_PATH);
 
-        return $urlPath === false ? '' : $urlPath;
+        return $urlPath === false ? null : $urlPath;
     }
 
     /**
