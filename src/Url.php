@@ -37,7 +37,10 @@ class Url
             return $newPath;
         }
 
-        $this->url = Str::replaceFirst($this->getPath(), $newPath, $this->url);
+        $path = $this->getPath();
+        if ($path !== null) {
+            $this->url = Str::replaceFirst($path, $newPath, $this->url);
+        }
 
         return $this;
     }
