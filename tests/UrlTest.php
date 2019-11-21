@@ -41,6 +41,12 @@ class UrlTest extends TestCase
         );
     }
 
+    public function testReplacePathForUrlWithoutPath(): void
+    {
+        $url = new Url('//url');
+        $this->assertSame($url, $url->replacePath('a-new-path'));
+    }
+
     public function testReplacePathWithEmptyUrl(): void
     {
         $emptyUrl = new Url('');
