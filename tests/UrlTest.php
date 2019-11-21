@@ -27,6 +27,12 @@ class UrlTest extends TestCase
         $this->assertEquals('/about', $this->absoluteUrl->getPath());
     }
 
+    public function testGetPathReturnsNullIfUrlHasNotPath(): void
+    {
+        $url = new Url('//invalid-relative-url');
+        $this->assertNull($url->getPath());
+    }
+
     public function testReplacePath(): void
     {
         $this->assertEquals(
@@ -34,7 +40,6 @@ class UrlTest extends TestCase
             (string) $this->absoluteUrl->replacePath('/signup')
         );
     }
-
 
     public function testReplacePathWithEmptyUrl(): void
     {
